@@ -1,47 +1,72 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"rel="stylesheet"/>
     <title>Weather DashBoard</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
     <header>
-        <h1>5-DAY WEATHER FORECAST</h1>'
+        <h1>WEATHER FORECAST</h1>'
     </header>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-1">
+                <div class="row">
+                    <div id="search-button">
+                        <p>Search for a city</p>
 
-    <p id="inputConttainer">City: <input type="text" id="cityInput"></p>
+                        <div id="inputConttainer">City: <input type="text" id="cityInput"></p>
 
-    <button>Search</button>
+                            <button>Search</button>
 
-    <h2 id="cityName"></h2>
-
-
-
-    <div id="weatherContainer">
-        <div id="imageCOntainer">
-            <div class="icons">
-                <p class="weather" id="day1"></p>
-                <div class="image"><img src="img1.png" class="imgClass" id="img1"></div>
-                <p id="Temp"></p>
-                <p id="humidity"></p>
-                <p id="wind"></p>
-                <p id="Uvi"></p>
+                            <h2 id="cityName"></h2>
 
 
-            </div>
-        </div>
-    </div>
-    <div class="row hide" id="currentCity">
-        <h3 id="currentCityInfo"><img id="weatherImage"><img></h3>
-    </div>
-    <div class="row hide" id="forecast">
-    </div>
-    </div>
 
-    <script src="script.js"></script>
+                            <div class="col-9">
+                                <div id="todays-weather" class="card-body">
+                                    <p class="weather" id="day1"></p>
+
+                                    <p id="Temp"></p>
+                                    <p id="humidity"></p>
+                                    <p id="wind"></p>
+                                    <p id="UVI"></p>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row hide" id="currentCity">
+                            <h3 id="currentCityInfo"><img id="weatherImage"><img></h3>
+                        </div>
+                        <div class="row hide" id="forecast">
+
+                            <div class="row-5day" id="day-head">
+                                <div class="col-10">
+                                    <h3>5 Day forecast</h3>
+                                </div>
+
+                                <section class="weatherInfo col-9">
+                                    <div id="weatherMainInfo" class="weatherMainInfo">
+                     
+                                 </div>
+                     
+                                 <div class="forecast5Days" id="forecast5Days">
+                     
+                                 </div>
+                       
+                                 </section>
+                                
+            
+                                </div>
+                            </div>
+
+                            <script src="script.js"></script>
 
 
 
@@ -53,54 +78,4 @@
 
 
 
-</html> -->
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Forecaster</title>
-    <link rel="stylesheet" href="./assets/css/style.css" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="./assets/js/script.js"></script>
-</head>
-<body class="bg-slate-500">
-    <!-- Header section -->
-    <header class="flex justify-center p-5 bg-slate-900 bg-gradient-to-r from-sky-300 via-sky-400 to-sky-700">
-        <h1 class="font-bold text-slate-100 text-4xl">Weather Dashboard</h1>
-    </header>
-
-    <main class="container">
-        <!-- Search & History section -->
-        <section class="search-container w-full">
-            <div class="flex flex-col m-5 items-center">
-                <form id="form-search" class="flex flex-col w-80 gap-2 mb-5 border-b-2">
-                    <label class="font-bold text-slate-100 text-2xl mb-2" for='city-search'>Search for a City: <span id="searchTerm"></span></label>
-                    <div class="text-red-400 animate-pulse" id="no-results"></div>
-                    <input id="city-search" class="text-center rounded" name='city-search' type="text" placeholder="Enter a city" list="cities" />
-                    <button id="form-search-button" class="font-bold text-slate-100 text-xl mb-2 bg-slate-900 py-1 px-3 rounded hover:bg-slate-400" type="submit">Search</button>
-                </form>
-                <div class="flex flex-col w-2/5">
-                    <ul id="searchHistoryContainer"></ul>
-                </div>
-            </div>
-        </section>
-
-        <section class="container-2 w-full" id="parent-container">
-            <!-- Current Day Forecast -->
-            <div class="flex flex-col items-left mx-5 p-5 rounded text-slate-100 font-bold" id="">
-                <h2 class="w-full" id="curr-city"></h2>
-                <div class="w-full" id="curr-date"></div>
-                <ul class="flex justify-center w-full">
-                    <li class="w-1/4" id="curr-temp"></li>
-                    <li class="w-1/4" id="curr-wind"></li>
-                    <li class="w-1/4" id="curr-humidity"></li>
-                    <li class="w-1/4" id="curr-uvindex"></li>
-                </ul>
-            </div>
-        </section>
-    </main>
-</body>
 </html>
