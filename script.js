@@ -1,4 +1,13 @@
+
+//Calling Elements from HTML
+
 function initPage() {
+    const currentWindEl = document.getElementById("wind-speed");
+    const currentUVEl = document.getElementById("UV-index");
+    const historyEl = document.getElementById("history");
+    var fivedayEl = document.getElementById("fiveday-header");
+    var todayweatherEl = document.getElementById("todays-weather");
+    let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
     const cityEl = document.getElementById("enter-city");
     const searchEl = document.getElementById("search-button");
     const clearEl = document.getElementById("clear-history");
@@ -6,20 +15,14 @@ function initPage() {
     const currentPicEl = document.getElementById("current-picture");
     const currentTempEl = document.getElementById("temperature");
     const currentHumidityEl = document.getElementById("humidity");
-    const currentWindEl = document.getElementById("wind-speed");
-    const currentUVEl = document.getElementById("UV-index");
-    const historyEl = document.getElementById("history");
-    var fivedayEl = document.getElementById("fiveday-header");
-    var todayweatherEl = document.getElementById("todays-weather");
-    let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
+    
 }
 // API key by openweathermap 
 const APIKey = "e397c0ad290977cba948a64734ab37cd";
 const FORECAST_URL = "https://api.openweathermap.org/data/2.5/forecast?appid=" + APIKey + "&units=imperial&q=";
 const CURRENT_URL = "https://api.openweathermap.org/data/2.5/weather?appid=" + APIKey + "&units=imperial&q=";
 const UVI_URL = "https://api.openweathermap.org/data/2.5/uvi?appid=" + APIKey + "&cnt=1";
-const ICON_URL = "https://openweathermap.org/img/wn/";
-const ICON_DOUBLE_SIZE_SUFFIX = "@2x.png";
+
 //  When search button is clicked, read the city name typed by the user
 
 function printFiveDayForecastCard(card, forecast) {
@@ -104,7 +107,7 @@ function getWeather(cityName) {
     currentWeather(cityName);    
 }
 
-function readFromLocalStorage() {
+function FromLocalStorage() {
     var currentState = window.localStorage.getItem("cityHistory"); // { cities: ["", ""] }
     if(!currentState) {
         currentState = [];
@@ -114,14 +117,14 @@ function readFromLocalStorage() {
     return currentState;
 }
 
-function addCityToLocalStorage(cityName) {
-    var currentState = readFromLocalStorage();
+function ToLocalStorage(cityName) {
+    var currentState = FromLocalStorage();
     currentState.unshift(cityName);
     window.localStorage.setItem("cityHistory", JSON.stringify({ cities: currentState }));
 }
 
-function refreshSearchHistory() {
-    let cityHistory = readFromLocalStorage();
+function LoadSearchHistory() {
+    let cityHistory = FromLocalStorage();
     $("#searchHistory")[0].innerHTML = "";
     for(var i = 0; i < cityHistory.length; i++) {
         let cityName = cityHistory[i];
@@ -136,9 +139,6 @@ $("#executeSearch").click(function() {
     refreshSearchHistory();
 });
 
-$("#clear-history-btn").click(function() {
-    window.localStorage.setItem("cityHistory", JSON.stringify({ cities: [] }));
-    refreshSearchHistory();
-});
 
-refreshSearchHistory();
+
+refreshSearchHistory(); 
