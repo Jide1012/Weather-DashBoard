@@ -1,4 +1,5 @@
 function initPage() {
+    const currentHumidityEl = document.getElementById("humidity");
     const currentWindEl = document.getElementById("wind-speed");
     const currentUVEl = document.getElementById("UV-index");
     const historyEl = document.getElementById("history");
@@ -11,7 +12,7 @@ function initPage() {
     const nameEl = document.getElementById("city-name");
     const currentPicEl = document.getElementById("current-picture");
     const currentTempEl = document.getElementById("temperature");
-    const currentHumidityEl = document.getElementById("humidity");
+
 }
 // Weather API Key
 const APIKey = "e397c0ad290977cba948a64734ab37cd";
@@ -21,6 +22,7 @@ const UVI_URL = "https://api.openweathermap.org/data/2.5/uvi?appid=" + APIKey + 
 const ICON_URL = "https://openweathermap.org/img/wn/";
 const ICON_DOUBLE_SIZE_SUFFIX = "@2x.png";
 
+
 function printFiveDayForecastCard(card, forecast) {
 
     let forecastDate = moment(forecast.dt_txt, "YYYY-MM-DD HH:mm:ss").format("MM/DD/YYYY");
@@ -29,21 +31,21 @@ function printFiveDayForecastCard(card, forecast) {
     let weather = forecast.weather[0].description;
     let weatherIcon = ICON_URL + forecast.weather[0].icon + ICON_DOUBLE_SIZE_SUFFIX;
 
-    
-    card.innerHTML = ""; 
-    card.innerHTML += "<p>" + forecastDate +"</p>"; 
-    card.innerHTML += "<img src=\"" + weatherIcon + "\" alt=\"" + weather + "\"></img>"; 
-    card.innerHTML += "<p>Temperature: " + temperature + " F</p>"; 
-    card.innerHTML += "<p>Humidity: " + humidity + " %</p>"; 
+
+    card.innerHTML = "";
+    card.innerHTML += "<p>" + forecastDate + "</p>";
+    card.innerHTML += "<img src=\"" + weatherIcon + "\" alt=\"" + weather + "\"></img>";
+    card.innerHTML += "<p>Temperature: " + temperature + " F</p>";
+    card.innerHTML += "<p>Humidity: " + humidity + " %</p>";
 }
-//Statement to account for an error
+
 function fiveDayForecast(cityName) {
     let forecastQuery = FORECAST_URL + cityName;
-    $.getJSON(forecastQuery, function(data, status) {
-        if(status !== "works") {
-            
+    $.getJSON(forecastQuery, function (data, status) {
+        if (status !== "success") {
+            // show error message
         } else {
-            for(var i = 0; i < 5; i++) {
+            for (var i = 0; i < 5; i++) {
                 printFiveDayForecastCard(document.getElementById("forecast" + i), data.list[i * 8 + 4]); // Multiply by 8 because forecast every 3 hours (8 times a day), and add 4 to point to Noon (as noon is the fourth block of three hours)
             }
         }
@@ -51,9 +53,9 @@ function fiveDayForecast(cityName) {
 }
 
 function currentWeather(cityName) {
-    let weatherQuery = CURRENT_URL + cityName; 
-    $.getJSON(weatherQuery, function(data, status) {
-        if(status !=="success") {
+    let weatherQuery = CURRENT_URL + cityName;
+    $.getJSON(weatherQuery, function (data, status) {
+        if (status !== "success") {
             //error message
         } else {
             let forecast = data;
@@ -75,16 +77,16 @@ function currentWeather(cityName) {
             let lat = forecast.coord.lat;
             let lon = forecast.coord.lon;
             let uviQuery = UVI_URL + "&lat=" + lat + "&lon=" + lon;
-            $.getJSON(uviQuery, function(uviData, uviStatus) {
-                if(uviStatus !== "success") {
-                
+            $.getJSON(uviQuery, function (uviData, uviStatus) {
+                if (uviStatus !== "success") {
+
                 } else {
                     let uvi = uviData.value;
                     var uvi_rating = "";
-                    if(uvi <= 4.0) {
+                    if (uvi <= 4.0) {
                         uvi_rating = "success";
                     }
-                    else if(uvi <= 8.0) {
+                    else if (uvi <= 8.0) {
                         uvi_rating = "warning";
                     } else {
                         uvi_rating = "danger";
@@ -100,12 +102,12 @@ function currentWeather(cityName) {
 
 function getWeather(cityName) {
     fiveDayForecast(cityName);
-    currentWeather(cityName);    
+    currentWeather(cityName);
 }
 
 function readFromLocalStorage() {
-    var currentState = window.localStorage.getItem("cityHistory"); 
-    if(!currentState) {
+    var currentState = window.localStorage.getItem("cityHistory");
+    if (!currentState) {
         currentState = [];
     } else {
         currentState = JSON.parse(currentState).cities;
@@ -122,20 +124,20 @@ function addCityToLocalStorage(cityName) {
 function refreshSearchHistory() {
     let cityHistory = readFromLocalStorage();
     $("#searchHistory")[0].innerHTML = "";
-    for(var i = 0; i < cityHistory.length; i++) {
+    for (var i = 0; i < cityHistory.length; i++) {
         let cityName = cityHistory[i];
         $("#searchHistory")[0].innerHTML += "<div class=\"button\" onClick=\"getWeather('" + cityName + "');\">" + cityName + "</div>";
     }
 }
 
-$("#executeSearch").click(function() {
+$("#executeSearch").click(function () {
     let cityName = $("#cityName")[0].value;
     getWeather(cityName);
     addCityToLocalStorage(cityName);
     refreshSearchHistory();
 });
 
-$("#clear-history-btn").click(function() {
+$("#clear-history-btn").click(function () {
     window.localStorage.setItem("cityHistory", JSON.stringify({ cities: [] }));
     refreshSearchHistory();
 });
