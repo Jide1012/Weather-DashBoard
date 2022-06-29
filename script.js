@@ -19,8 +19,7 @@ const FORECAST_URL = "https://api.openweathermap.org/data/2.5/forecast?appid=" +
 const CURRENT_URL = "https://api.openweathermap.org/data/2.5/weather?appid=" + APIKey + "&units=imperial&q=";
 const UVI_URL = "https://api.openweathermap.org/data/2.5/uvi?appid=" + APIKey + "&cnt=1";
 const ICON_URL = "https://openweathermap.org/img/wn/";
-
-
+const ICON_DOUBLE_SIZE_SUFFIX = "@2x.png";
 
 function printFiveDayForecastCard(card, forecast) {
 
@@ -105,7 +104,7 @@ function getWeather(cityName) {
 }
 
 function readFromLocalStorage() {
-    var currentState = window.localStorage.getItem("cityHistory"); // { cities: ["", ""] }
+    var currentState = window.localStorage.getItem("cityHistory"); 
     if(!currentState) {
         currentState = [];
     } else {
