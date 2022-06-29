@@ -1,4 +1,11 @@
 function initPage() {
+    
+    const cityEl = document.getElementById("enter-city");
+    const searchEl = document.getElementById("search-button");
+    const clearEl = document.getElementById("clear-history");
+    const nameEl = document.getElementById("city-name");
+    const currentPicEl = document.getElementById("current-picture");
+    const currentTempEl = document.getElementById("temperature");
     const currentHumidityEl = document.getElementById("humidity");
     const currentWindEl = document.getElementById("wind-speed");
     const currentUVEl = document.getElementById("UV-index");
@@ -6,12 +13,6 @@ function initPage() {
     var fivedayEl = document.getElementById("fiveday-header");
     var todayweatherEl = document.getElementById("todays-weather");
     let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
-    const cityEl = document.getElementById("enter-city");
-    const searchEl = document.getElementById("search-button");
-    const clearEl = document.getElementById("clear-history");
-    const nameEl = document.getElementById("city-name");
-    const currentPicEl = document.getElementById("current-picture");
-    const currentTempEl = document.getElementById("temperature");
 
 }
 // Weather API Key
