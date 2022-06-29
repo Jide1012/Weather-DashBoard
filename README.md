@@ -18,7 +18,10 @@ THEN the UI scrolls to a section with titled images of the developer's applicati
   ## Installation
   VSCODE
   ## Usage
-  [Website Image](https://github.com/Jide1012/Jide-Adesanya-Portfolio/blob/main/Images/portfolio%20Image.PNG)
+[Website Image](https://github.com/Jide1012/Weather-DashBoard/blob/main/Forecast%20image.PNG)
+
+Once you serarch up a City you will get the Temperature, Humidity, Wind Speed and UVI index for the next 5 days.
+
 You can access my website by going to https://jide1012.github.io/Weather-DashBoard/ 
   ## License
   
