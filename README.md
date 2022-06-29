@@ -4,7 +4,7 @@
 
 # Jide-Adesanya-Weather Dashboard  (![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
   ## Description
-As aN employer I want to view a potential employee's deployed portfolio of work samples
+As an employer I want to view a potential employee's deployed portfolio of work samples
 so that I can review samples of their work and assess whether they're a good candidate for an open position
 given I need to sample a potential employee's previous work
 when I load their portfolioTHEN I am presented with the developer's name, a recent photo or avatar, and links to sections about them, their work, and how to contact them, WHEN I click one of the links in the navigationTHEN the UI scrolls to the corresponding sectionWHEN I click on the link to the section about their work
