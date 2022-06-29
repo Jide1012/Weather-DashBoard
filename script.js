@@ -30,31 +30,31 @@ function printFiveDayForecastCard(card, forecast) {
     let weather = forecast.weather[0].description;
     let weatherIcon = ICON_URL + forecast.weather[0].icon + ICON_DOUBLE_SIZE_SUFFIX;
 
-    // Present data inside HTML
-    card.innerHTML = ""; // Empties existing content from the Card
-    card.innerHTML += "<p>" + forecastDate +"</p>"; // Adds Date
-    card.innerHTML += "<img src=\"" + weatherIcon + "\" alt=\"" + weather + "\"></img>"; // Appends Icon
-    card.innerHTML += "<p>Temperature: " + temperature + " F</p>"; // Appends Temperature in F
-    card.innerHTML += "<p>Humidity: " + humidity + " %</p>"; // And Humidity
+
+    card.innerHTML = "";
+    card.innerHTML += "<p>" + forecastDate + "</p>";
+    card.innerHTML += "<img src=\"" + weatherIcon + "\" alt=\"" + weather + "\"></img>";
+    card.innerHTML += "<p>Temperature: " + temperature + " F</p>";
+    card.innerHTML += "<p>Humidity: " + humidity + " %</p>";
 }
 
 function fiveDayForecast(cityName) {
     let forecastQuery = FORECAST_URL + cityName;
-    $.getJSON(forecastQuery, function(data, status) {
-        if(status !== "works") {
-            //error message
+    $.getJSON(forecastQuery, function (data, status) {
+        if (status !== "works") {
+            // show error message
         } else {
-            for(var i = 0; i < 5; i++) {
-                printFiveDayForecastCard(document.getElementById("forecast" + i), data.list[i * 8 + 4]); // Multiply by 8 because forecast every 3 hours (8 times a day), and add 4 to point to Noon (as noon is the fourth block of three hours)
+            for (var i = 0; i < 5; i++) {
+                printFiveDayForecastCard(document.getElementById("forecast" + i), data.list[i * 8 + 4]);
             }
         }
     });
 }
 
 function currentWeather(cityName) {
-    let weatherQuery = CURRENT_URL + cityName; 
-    $.getJSON(weatherQuery, function(data, status) {
-        if(status !=="works") {
+    let weatherQuery = CURRENT_URL + cityName;
+    $.getJSON(weatherQuery, function (data, status) {
+        if (status !== "works") {
             //error message
         } else {
             let forecast = data;
@@ -76,16 +76,16 @@ function currentWeather(cityName) {
             let lat = forecast.coord.lat;
             let lon = forecast.coord.lon;
             let uviQuery = UVI_URL + "&lat=" + lat + "&lon=" + lon;
-            $.getJSON(uviQuery, function(uviData, uviStatus) {
-                if(uviStatus !== "success") {
-                    
+            $.getJSON(uviQuery, function (uviData, uviStatus) {
+                if (uviStatus !== "works") {
+
                 } else {
                     let uvi = uviData.value;
                     var uvi_rating = "";
-                    if(uvi <= 4.0) {
+                    if (uvi <= 4.0) {
                         uvi_rating = "success";
                     }
-                    else if(uvi <= 8.0) {
+                    else if (uvi <= 8.0) {
                         uvi_rating = "warning";
                     } else {
                         uvi_rating = "danger";
@@ -101,19 +101,19 @@ function currentWeather(cityName) {
 
 function getWeather(cityName) {
     fiveDayForecast(cityName);
-    currentWeather(cityName);    
+    currentWeather(cityName);
 }
 
 function readFromLocalStorage() {
-    var currentState = window.localStorage.getItem("cityHistory"); 
-    if(!currentState) {
+    var currentState = window.localStorage.getItem("cityHistory");
+    if (!currentState) {
         currentState = [];
     } else {
         currentState = JSON.parse(currentState).cities;
     }
     return currentState;
 }
-//added to local storage
+//added to localStorage
 function addCityToLocalStorage(cityName) {
     var currentState = readFromLocalStorage();
     currentState.unshift(cityName);
@@ -123,20 +123,20 @@ function addCityToLocalStorage(cityName) {
 function refreshSearchHistory() {
     let cityHistory = readFromLocalStorage();
     $("#searchHistory")[0].innerHTML = "";
-    for(var i = 0; i < cityHistory.length; i++) {
+    for (var i = 0; i < cityHistory.length; i++) {
         let cityName = cityHistory[i];
         $("#searchHistory")[0].innerHTML += "<div class=\"button\" onClick=\"getWeather('" + cityName + "');\">" + cityName + "</div>";
     }
 }
 
-$("#executeSearch").click(function() {
+$("#executeSearch").click(function () {
     let cityName = $("#cityName")[0].value;
     getWeather(cityName);
     addCityToLocalStorage(cityName);
     refreshSearchHistory();
 });
 
-$("#clear-history-btn").click(function() {
+$("#clear-history-btn").click(function () {
     window.localStorage.setItem("cityHistory", JSON.stringify({ cities: [] }));
     refreshSearchHistory();
 });
