@@ -1,7 +1,3 @@
-
-
-
-
 var searchInput = document.querySelector("#cityName");
 var todayWeather = document.querySelector("#weatherMainInfo");
 var forecast = document.querySelector("#forecast5Days");
