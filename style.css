@@ -1,13 +1,19 @@
 h1 {
     text-align: center;
     font-size: 30px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin: auto;
-    background-color: rgb(233, 1, 1);
-    padding: 25px;
-    color: rgb(0, 0, 0);
+    background-color: rgb(114, 43, 180);
+    padding: 20px;
+    color: whitesmoke;
 }
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 8rem;
+    display: inline-block;
 
+}
 
 .search-feature {
     float: right;
@@ -17,14 +23,12 @@ h1 {
 }
 
 .day-head {
-    background-color: rgb(225, 7, 7);
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(203, 151, 252);
+
 }
 
-.card-body {
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
-    padding: 6rem;
-    display: inline-block;
+.todays-weather {
+    float: left;
 
 }
