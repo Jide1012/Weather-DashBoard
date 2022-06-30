@@ -23,29 +23,29 @@ const ICON_DOUBLE_SIZE_SUFFIX = "@2x.png";
 
 
 function printFiveDayForecastCard(card, forecast) {
-    // Cards for 5 Day forecast
+// Cards for 5 Day forecast
     let forecastDate = moment(forecast.dt_txt, "YYYY-MM-DD HH:mm:ss").format("MM/DD/YYYY");
     let temperature = forecast.main.temp;
     let humidity = forecast.main.humidity;
     let weather = forecast.weather[0].description;
     let weatherIcon = ICON_URL + forecast.weather[0].icon + ICON_DOUBLE_SIZE_SUFFIX;
 
-    //Appends Forecast
+   //Appends Forecast
     card.innerHTML = ""; 
     card.innerHTML += "<p>" + forecastDate +"</p>"; 
     card.innerHTML += "<img src=\"" + weatherIcon + "\" alt=\"" + weather + "\"></img>"; 
     card.innerHTML += "<p>Temperature: " + temperature + " F</p>"; 
-    card.innerHTML += "<p>Humidity: " + humidity + " %</p>"; 
+    card.innerHTML += "<p>Humidity: " + humidity + " %</p>";
 }
 
 function fiveDayForecast(cityName) {
     let forecastQuery = FORECAST_URL + cityName;
     $.getJSON(forecastQuery, function(data, status) {
-        if(status !== "works") {
+        if(status !== "success") {
             // error message
         } else {
             for(var i = 0; i < 5; i++) {
-                printFiveDayForecastCard(document.getElementById("forecast" + i), data.list[i * 8 + 4]); 
+                printFiveDayForecastCard(document.getElementById("forecast" + i), data.list[i * 8 + 4]); // Multiply by 8 because forecast every 3 hours (8 times a day), and add 4 to point to Noon (as noon is the fourth block of three hours)
             }
         }
     });
@@ -54,8 +54,8 @@ function fiveDayForecast(cityName) {
 function currentWeather(cityName) {
     let weatherQuery = CURRENT_URL + cityName; 
     $.getJSON(weatherQuery, function(data, status) {
-        if(status !=="works") {
-            //error message
+        if(status !=="success") {
+            // error message
         } else {
             let forecast = data;
             let currentDate = moment().format("MM/DD/YYYY");
@@ -105,7 +105,7 @@ function getWeather(cityName) {
 }
 
 function readFromLocalStorage() {
-    var currentState = window.localStorage.getItem("cityHistory");
+    var currentState = window.localStorage.getItem("cityHistory"); // { cities: ["", ""] }
     if(!currentState) {
         currentState = [];
     } else {

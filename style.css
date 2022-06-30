@@ -1,11 +1,11 @@
 h1 {
     text-align: center;
-    font-size: 30px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 25px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     margin: auto;
-    background-color: rgb(114, 43, 180);
-    padding: 20px;
-    color: whitesmoke;
+    background-color: rgb(255, 0, 0);
+    padding: 25px;
+    color: rgb(0, 0, 0);
 }
 .card-body {
     -ms-flex: 1 1 auto;
@@ -23,8 +23,8 @@ h1 {
 }
 
 .day-head {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    background-color: rgb(203, 151, 252);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: rgb(255, 0, 0);
 
 }
 
