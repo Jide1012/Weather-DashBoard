@@ -13,39 +13,39 @@ function initPage() {
     var todayweatherEl = document.getElementById("todays-weather");
     let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 }
-// API key by openweathermap 
+// API keys
 const APIKey = "e397c0ad290977cba948a64734ab37cd";
 const FORECAST_URL = "https://api.openweathermap.org/data/2.5/forecast?appid=" + APIKey + "&units=imperial&q=";
 const CURRENT_URL = "https://api.openweathermap.org/data/2.5/weather?appid=" + APIKey + "&units=imperial&q=";
 const UVI_URL = "https://api.openweathermap.org/data/2.5/uvi?appid=" + APIKey + "&cnt=1";
 const ICON_URL = "https://openweathermap.org/img/wn/";
 const ICON_DOUBLE_SIZE_SUFFIX = "@2x.png";
-//  When search button is clicked, read the city name typed by the user
+
 
 function printFiveDayForecastCard(card, forecast) {
-    // Extract the data from JSON payload
+    // Cards for 5 Day forecast
     let forecastDate = moment(forecast.dt_txt, "YYYY-MM-DD HH:mm:ss").format("MM/DD/YYYY");
     let temperature = forecast.main.temp;
     let humidity = forecast.main.humidity;
     let weather = forecast.weather[0].description;
     let weatherIcon = ICON_URL + forecast.weather[0].icon + ICON_DOUBLE_SIZE_SUFFIX;
 
-    // Present data inside HTML
-    card.innerHTML = ""; // Empties existing content from the Card
-    card.innerHTML += "<p>" + forecastDate +"</p>"; // Adds Date
-    card.innerHTML += "<img src=\"" + weatherIcon + "\" alt=\"" + weather + "\"></img>"; // Appends Icon
-    card.innerHTML += "<p>Temperature: " + temperature + " F</p>"; // Appends Temperature in F
-    card.innerHTML += "<p>Humidity: " + humidity + " %</p>"; // And Humidity
+    //Appends Forecast
+    card.innerHTML = ""; 
+    card.innerHTML += "<p>" + forecastDate +"</p>"; 
+    card.innerHTML += "<img src=\"" + weatherIcon + "\" alt=\"" + weather + "\"></img>"; 
+    card.innerHTML += "<p>Temperature: " + temperature + " F</p>"; 
+    card.innerHTML += "<p>Humidity: " + humidity + " %</p>"; 
 }
 
 function fiveDayForecast(cityName) {
     let forecastQuery = FORECAST_URL + cityName;
     $.getJSON(forecastQuery, function(data, status) {
-        if(status !== "success") {
-            // show error message
+        if(status !== "works") {
+            // error message
         } else {
             for(var i = 0; i < 5; i++) {
-                printFiveDayForecastCard(document.getElementById("forecast" + i), data.list[i * 8 + 4]); // Multiply by 8 because forecast every 3 hours (8 times a day), and add 4 to point to Noon (as noon is the fourth block of three hours)
+                printFiveDayForecastCard(document.getElementById("forecast" + i), data.list[i * 8 + 4]); 
             }
         }
     });
@@ -54,7 +54,7 @@ function fiveDayForecast(cityName) {
 function currentWeather(cityName) {
     let weatherQuery = CURRENT_URL + cityName; 
     $.getJSON(weatherQuery, function(data, status) {
-        if(status !=="success") {
+        if(status !=="works") {
             //error message
         } else {
             let forecast = data;
@@ -78,7 +78,7 @@ function currentWeather(cityName) {
             let uviQuery = UVI_URL + "&lat=" + lat + "&lon=" + lon;
             $.getJSON(uviQuery, function(uviData, uviStatus) {
                 if(uviStatus !== "success") {
-                    // show text with UVI not available
+                    
                 } else {
                     let uvi = uviData.value;
                     var uvi_rating = "";
@@ -105,7 +105,7 @@ function getWeather(cityName) {
 }
 
 function readFromLocalStorage() {
-    var currentState = window.localStorage.getItem("cityHistory"); // { cities: ["", ""] }
+    var currentState = window.localStorage.getItem("cityHistory");
     if(!currentState) {
         currentState = [];
     } else {
@@ -113,13 +113,13 @@ function readFromLocalStorage() {
     }
     return currentState;
 }
-
+//Add Data do Local storage
 function addCityToLocalStorage(cityName) {
     var currentState = readFromLocalStorage();
     currentState.unshift(cityName);
     window.localStorage.setItem("cityHistory", JSON.stringify({ cities: currentState }));
 }
-
+//Clears search History
 function refreshSearchHistory() {
     let cityHistory = readFromLocalStorage();
     $("#searchHistory")[0].innerHTML = "";
